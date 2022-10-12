@@ -229,7 +229,6 @@ protected:
 // BEGIN TEMPLATE DEFINITIONS
 
 #include <vector>
-//USING_NAMESPACE(std)
 
 template <class T> T AbstractGroup<T>::Double(const Element &a) const
 {
