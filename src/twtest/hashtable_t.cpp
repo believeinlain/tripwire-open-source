@@ -41,8 +41,6 @@
 
 //#include "dummy.h"
 
-using namespace std;
-
 void HashTest1()
 {
     //Test the Hash table with Key = TSTRING

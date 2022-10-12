@@ -37,8 +37,6 @@
 #include "twtest/test.h"
 #include <iostream>
 
-using namespace std;
-
 void TestFCOSpec()
 {
     // all it seems I can test here is that the default mask works

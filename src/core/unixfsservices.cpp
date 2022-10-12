@@ -115,12 +115,6 @@
 #define TW_SLASH _T('/')
 
 //=========================================================================
-// OTHER DIRECTIVES
-//=========================================================================
-
-using namespace std;
-
-//=========================================================================
 // GLOBALS
 //=========================================================================
 
@@ -172,7 +166,7 @@ void cUnixFSServices::GetHostID(TSTRING& name) const
 {
     TOSTRINGSTREAM ret;
 
-    ret.setf(ios_base::hex, ios_base::basefield);
+    ret.setf(std::ios_base::hex, std::ios_base::basefield);
 #ifdef HAVE_GETHOSTID
     ret << gethostid();
 #else

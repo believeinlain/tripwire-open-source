@@ -41,8 +41,6 @@
 #include "core/crc32.h"
 #include "core/archive.h"
 
-using namespace std;
-
 std::string getTestFile()
 {
     // Create a file for which we know the signatures

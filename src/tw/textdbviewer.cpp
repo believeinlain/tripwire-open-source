@@ -70,12 +70,6 @@
 #include "core/displayencoder.h"
 
 //=========================================================================
-// USING NAMESPACE
-//=========================================================================
-
-using namespace std;
-
-//=========================================================================
 // GLOBALS
 //=========================================================================
 
@@ -182,9 +176,9 @@ void cTextDBViewer::PrintDB(cFCODatabaseFile& rd, const TSTRING& strFilename, Db
     }
 
     // we're done
-    (*pOut) << g_sz79Dashes << endl;
-    (*pOut) << TSS_GetString(cTW, tw::STR_END_OF_DB) << endl << endl;
-    (*pOut) << TSS_GetString(cTW, tw::STR_COPYRIGHT) << endl;
+    (*pOut) << g_sz79Dashes << std::endl;
+    (*pOut) << TSS_GetString(cTW, tw::STR_END_OF_DB) << std::endl << std::endl;
+    (*pOut) << TSS_GetString(cTW, tw::STR_COPYRIGHT) << std::endl;
 
     if (fIsFile)
         static_cast<TOFSTREAM*>(pOut)->close();
@@ -211,10 +205,10 @@ void cTextDBViewer::OutputFCO(cDbDataSourceIter&        dbIter,
         if (fDetails)
         {
             (*pOut) << TSS_GetString(cTW, tw::STR_OBJECT_NAME) << _T(" ")
-                    << pNT->ToStringDisplay(pFCO->GetName()).c_str() << endl
-                    << endl;
+                    << pNT->ToStringDisplay(pFCO->GetName()).c_str() << std::endl
+                    << std::endl;
             DisplayFCOProps(pFCO, pPD, pOut);
-            (*pOut) << endl << endl;
+            (*pOut) << std::endl << std::endl;
         }
         else
             PrintFCOShort(pFCO, pPD, pNT, pOut, DETAILS_MARGIN);
@@ -249,8 +243,8 @@ PrintFCOShort(const iFCO* pFCO, const iFCOPropDisplayer* pPD, const iFCONameTran
     //
     (*pOut) << _T(" ");
     (*pOut) << pNT->ToStringDisplay(pFCO->GetName()).c_str();
-    (*pOut) << endl;
-    (*pOut) << setw(margin) << _T("");
+    (*pOut) << std::endl;
+    (*pOut) << std::setw(margin) << _T("");
     pPD->GetDetails(pFCO, strDetails);
     (*pOut) << strDetails;
     (*pOut) << _T("\n");
@@ -287,16 +281,16 @@ static void OutputIterPeers(cDbDataSourceIter         dbIter,
 static void OutputDatabaseHeader(const cFCODbHeader& dbHeader, TOSTREAM* pOut)
 {
     const int headerColumnWidth = 30;
-    (*pOut) << TSS_GetString(cTW, tw::STR_DBPRINT_TITLE) << endl << endl;
+    (*pOut) << TSS_GetString(cTW, tw::STR_DBPRINT_TITLE) << std::endl << std::endl;
 
     (*pOut).width(headerColumnWidth);
-    (*pOut) << TSS_GetString(cTW, tw::STR_DB_GENERATED_BY) << util_Encode(dbHeader.GetCreator()) << endl;
+    (*pOut) << TSS_GetString(cTW, tw::STR_DB_GENERATED_BY) << util_Encode(dbHeader.GetCreator()) << std::endl;
 
     TSTRING tstrDummy;
     int64   i64CreateTime = dbHeader.GetCreationTime();
     (*pOut).width(headerColumnWidth);
     (*pOut) << TSS_GetString(cTW, tw::STR_DB_CREATED_ON) << cTWLocale::FormatTime(i64CreateTime, tstrDummy).c_str()
-            << endl;
+            << std::endl;
 
     (*pOut).width(headerColumnWidth);
     (*pOut) << TSS_GetString(cTW, tw::STR_DB_LAST_UPDATE);
@@ -304,42 +298,42 @@ static void OutputDatabaseHeader(const cFCODbHeader& dbHeader, TOSTREAM* pOut)
     int64 i64LastDBUTime = dbHeader.GetLastDBUpdateTime();
     if (i64LastDBUTime == 0)
     {
-        (*pOut) << TSS_GetString(cTW, tw::STR_NEVER) << endl << endl;
+        (*pOut) << TSS_GetString(cTW, tw::STR_NEVER) << std::endl << std::endl;
     }
     else
     {
-        (*pOut) << cTWLocale::FormatTime(i64LastDBUTime, tstrDummy).c_str() << endl << endl;
+        (*pOut) << cTWLocale::FormatTime(i64LastDBUTime, tstrDummy).c_str() << std::endl << std::endl;
     }
 
     OutputSectionDelimiter(tw::STR_DB_SUMMARY, pOut);
 
     (*pOut).width(headerColumnWidth);
-    (*pOut) << TSS_GetString(cTW, tw::STR_HOST_NAME) << dbHeader.GetSystemName().c_str() << endl;
+    (*pOut) << TSS_GetString(cTW, tw::STR_HOST_NAME) << dbHeader.GetSystemName().c_str() << std::endl;
     (*pOut).width(headerColumnWidth);
-    (*pOut) << TSS_GetString(cTW, tw::STR_HOST_IP) << dbHeader.GetIPAddress() << endl;
+    (*pOut) << TSS_GetString(cTW, tw::STR_HOST_IP) << dbHeader.GetIPAddress() << std::endl;
 
 
     (*pOut).width(headerColumnWidth);
     (*pOut) << TSS_GetString(cTW, tw::STR_HOST_ID);
 
     if (!dbHeader.GetHostID().empty())
-        (*pOut) << dbHeader.GetHostID() << endl;
+        (*pOut) << dbHeader.GetHostID() << std::endl;
     else
-        (*pOut) << TSS_GetString(cTW, tw::STR_NONE) << endl;
+        (*pOut) << TSS_GetString(cTW, tw::STR_NONE) << std::endl;
 
 
-    (*pOut) << setw(headerColumnWidth) << TSS_GetString(cTW, tw::STR_POLICY_FILE_USED)
-            << util_Encode(dbHeader.GetPolicyFilename()) << endl;
+    (*pOut) << std::setw(headerColumnWidth) << TSS_GetString(cTW, tw::STR_POLICY_FILE_USED)
+            << util_Encode(dbHeader.GetPolicyFilename()) << std::endl;
 
-    (*pOut) << setw(headerColumnWidth) << TSS_GetString(cTW, tw::STR_CONFIG_FILE_USED)
-            << util_Encode(dbHeader.GetConfigFilename()) << endl;
+    (*pOut) << std::setw(headerColumnWidth) << TSS_GetString(cTW, tw::STR_CONFIG_FILE_USED)
+            << util_Encode(dbHeader.GetConfigFilename()) << std::endl;
 
-    (*pOut) << setw(headerColumnWidth) << TSS_GetString(cTW, tw::STR_DB_FILE_USED)
-            << util_Encode(dbHeader.GetDBFilename()) << endl;
+    (*pOut) << std::setw(headerColumnWidth) << TSS_GetString(cTW, tw::STR_DB_FILE_USED)
+            << util_Encode(dbHeader.GetDBFilename()) << std::endl;
 
-    (*pOut) << setw(headerColumnWidth) << TSS_GetString(cTW, tw::STR_CMD_LINE_USED)
-            << util_Encode(dbHeader.GetCommandLineParams()) << endl
-            << endl;
+    (*pOut) << std::setw(headerColumnWidth) << TSS_GetString(cTW, tw::STR_CMD_LINE_USED)
+            << util_Encode(dbHeader.GetCommandLineParams()) << std::endl
+            << std::endl;
 }
 
 #if 0 
@@ -353,18 +347,18 @@ static void OutputRulesSummary(const cFCODatabaseFileIter& genreIter, const iFCO
     const int nameWidth = 50;
     const int numObjectsWidth = 10; 
 
-    (*pOut) << g_sz79Dashes << endl;
-    (*pOut) << TSS_GetString( cTW, tw::STR_RULE_SUMMARY ) << endl;
-    (*pOut) << g_sz79Dashes << endl << endl;
+    (*pOut) << g_sz79Dashes << std::endl;
+    (*pOut) << TSS_GetString( cTW, tw::STR_RULE_SUMMARY ) << std::endl;
+    (*pOut) << g_sz79Dashes << std::endl << std::endl;
 
     (*pOut).width(nameWidth);
     (*pOut) << TSS_GetString( cTW, tw::STR_RULE_NAME );
     (*pOut).width(numObjectsWidth);
-    (*pOut) << TSS_GetString( cTW, tw::STR_OBJECTS ) << endl;
+    (*pOut) << TSS_GetString( cTW, tw::STR_OBJECTS ) << std::endl;
 
-    (*pOut) << setw( nameWidth ) << _T("---------");
-    (*pOut) << setw( numObjectsWidth ) << _T("-------");
-    (*pOut) << endl;
+    (*pOut) << std::setw( nameWidth ) << _T("---------");
+    (*pOut) << std::setw( numObjectsWidth ) << _T("-------");
+    (*pOut) << std::endl;
 
     // output spec stats
     cFCOSpecListCanonicalIter specIter( genreIter.GetSpecList() );
@@ -373,12 +367,12 @@ static void OutputRulesSummary(const cFCODatabaseFileIter& genreIter, const iFCO
     int nTotalObjects = 0;
     for( specIter.SeekBegin(); !specIter.Done(); specIter.Next() )
     {
-        (*pOut) << setw( nameWidth ) << specIter.Spec()->GetName();
+        (*pOut) << std::setw( nameWidth ) << specIter.Spec()->GetName();
 
         // if the name is too long, put it on its own line
         if( specIter.Spec()->GetName().length() >= nameWidth )
         {
-            (*pOut) << endl;
+            (*pOut) << std::endl;
 
             // output space holder
             (*pOut).width(nameWidth);
@@ -388,36 +382,36 @@ static void OutputRulesSummary(const cFCODatabaseFileIter& genreIter, const iFCO
         (*pOut).width(numObjectsWidth);
         (*pOut) << _T("TODO");
         //(*pOut) << specIter.GetFCOSet()->Size(); TODO: Do this right
-        (*pOut) << endl;
+        (*pOut) << std::endl;
     }
     
-    (*pOut) << endl;
+    (*pOut) << std::endl;
 
     // NOTE 4 Jan 99 mdb -- this used to use dbHeader.GetTotalObjectsScanned() but it was not always consistent with the 
     //      total number of objects in the database. TODO -- if we are really not going to use this number, then we should 
     //      not store it in the database at all.
     //
     (*pOut) << TSS_GetString( cTW, tw::STR_TOTAL_NUM_FILES );
-    //(*pOut) << _T(" ") << nTotalObjects << endl;
-    (*pOut) << _T("TODO") << endl;
-    (*pOut) << endl;
+    //(*pOut) << _T(" ") << nTotalObjects << std::endl;
+    (*pOut) << _T("TODO") << std::endl;
+    (*pOut) << std::endl;
 }
 #endif
 
 
 void OutputSectionDelimiter(int nString, TOSTREAM* pOut)
 {
-    (*pOut) << g_sz79Equals << endl;
-    (*pOut) << TSS_GetString(cTW, nString) << endl;
-    (*pOut) << g_sz79Equals << endl << endl;
+    (*pOut) << g_sz79Equals << std::endl;
+    (*pOut) << TSS_GetString(cTW, nString) << std::endl;
+    (*pOut) << g_sz79Equals << std::endl << std::endl;
 }
 
 void OutputGenreDelimiter(cGenre::Genre g, TOSTREAM* pOut)
 {
-    (*pOut) << g_sz79Dashes << endl;
+    (*pOut) << g_sz79Dashes << std::endl;
     (*pOut) << _T("# ") << TSS_GetString(cTW, tw::STR_SECTION);
-    (*pOut) << _T(": ") << cGenreSwitcher::GetInstance()->GenreToString(g, true) << endl;
-    (*pOut) << g_sz79Dashes << endl << endl;
+    (*pOut) << _T(": ") << cGenreSwitcher::GetInstance()->GenreToString(g, true) << std::endl;
+    (*pOut) << g_sz79Dashes << std::endl << std::endl;
 }
 
 void OutputObjectSummary(cFCODatabaseFile& rd, TOSTREAM* pOut, int margin)
@@ -445,12 +439,12 @@ void OutputObjectSummary(cFCODatabaseFileIter& genreIter, const iFCONameTranslat
     const cDbDataSourceIter dbIter(&genreIter.GetDb());
     ASSERT(dbIter.AtRoot());
 
-    (*pOut) << setw(margin) << _T("");
+    (*pOut) << std::setw(margin) << _T("");
     TSTRING strBuf;
-    (*pOut) << genreIter.GetGenreHeader().GetPropDisplayer()->GetDetailsHeader(strBuf, margin).c_str() << endl;
+    (*pOut) << genreIter.GetGenreHeader().GetPropDisplayer()->GetDetailsHeader(strBuf, margin).c_str() << std::endl;
 
     OutputIterPeers(dbIter, genreIter.GetGenreHeader().GetPropDisplayer(), pNT, pOut, false);
-    (*pOut) << endl;
+    (*pOut) << std::endl;
 }
 
 
@@ -476,7 +470,7 @@ void OutputObjectDetail(cFCODatabaseFileIter& genreIter, const iFCONameTranslato
     const cDbDataSourceIter dbIterDetails(&genreIter.GetDb());
 
     OutputIterPeers(dbIterDetails, genreIter.GetGenreHeader().GetPropDisplayer(), pNT, pOut, true);
-    (*pOut) << endl;
+    (*pOut) << std::endl;
 }
 
 
@@ -484,16 +478,16 @@ void OutputObjectDetail(cFCODatabaseFileIter& genreIter, const iFCONameTranslato
 static void OutputDetailHeader( const cFCODbSpecIter &dbi, int nObjects, TOSTREAM* pOut )
 {
     (*pOut) << g_sz79Dashes << _T( "\n" );
-    (*pOut) << TSS_GetString( cTW, tw::STR_FILE_DETAIL ) << endl;
+    (*pOut) << TSS_GetString( cTW, tw::STR_FILE_DETAIL ) << std::endl;
     
     TOSTRINGSTREAM ostr2;
     ostr2 << TSS_GetString( cTW, tw::STR_RULE_NAME ) << _T(": ") << dbi.GetSpec()->GetName().c_str();
-    ostr2 << _T( " (" ) << dbi.GetSpec()->GetStartPoint().AsString().c_str() << _T( ")" ) << endl;
+    ostr2 << _T( " (" ) << dbi.GetSpec()->GetStartPoint().AsString().c_str() << _T( ")" ) << std::endl;
     (*pOut) << ostr2.str().c_str();
 
-    (*pOut) << TSS_GetString( cTW, tw::STR_TOTAL_NUM_FILES ) << _T(" ") << nObjects << endl;
+    (*pOut) << TSS_GetString( cTW, tw::STR_TOTAL_NUM_FILES ) << _T(" ") << nObjects << std::endl;
 
-    (*pOut) << g_sz79Dashes << endl << endl;
+    (*pOut) << g_sz79Dashes << std::endl << std::endl;
 }
 */
 
@@ -504,7 +498,7 @@ static void OutputSpecHeader( const cFCODbSpecIter &dbi, TOSTREAM* pOut )
     
     TOSTRINGSTREAM ostr2;
     ostr2 << TSS_GetString( cTW, tw::STR_RULE_NAME ) << _T(": ") << dbi.GetSpec()->GetName().c_str();
-    ostr2 << _T( " (" ) << dbi.GetSpec()->GetStartPoint().AsString().c_str() << _T( ")" ) << endl;
+    ostr2 << _T( " (" ) << dbi.GetSpec()->GetStartPoint().AsString().c_str() << _T( ")" ) << std::endl;
     (*pOut) << ostr2.str().c_str();
 
     (*pOut) << g_sz79Dashes << _T( "\n" );
@@ -526,13 +520,13 @@ void DisplayFCOProps(const iFCO* const pFCO, const iFCOPropDisplayer* pPD, TOSTR
     (*pOut) << TSS_GetString(cTW, tw::STR_ATTRIBUTES);
     (*pOut).width(attrValueWidth);
     (*pOut) << TSS_GetString(cTW, tw::STR_ATTR_VALUE);
-    (*pOut) << endl;
+    (*pOut) << std::endl;
 
     (*pOut).width(attrNameWidth);
     (*pOut) << _T("-------------");
     (*pOut).width(attrValueWidth);
     (*pOut) << _T("-----------");
-    (*pOut) << endl;
+    (*pOut) << std::endl;
 
     int iNumProps = pFCO->GetPropSet()->GetNumProps();
     for (int j = 0; j < iNumProps; j++)

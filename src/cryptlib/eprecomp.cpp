@@ -3,7 +3,6 @@
 #include "algebra.h"
 
 #include <vector>
-USING_NAMESPACE(std)
 
 template <class T> void ExponentiationPrecomputation<T>::Precompute(const Element &base, unsigned int maxExpBits)
 {
@@ -17,7 +16,7 @@ template <class T> void ExponentiationPrecomputation<T>::Precompute(const Elemen
 
 template <class T> typename ExponentiationPrecomputation<T>::Element ExponentiationPrecomputation<T>::Exponentiate(const Integer &exponent) const
 {
-    vector<pair<Integer, Element> > eb(storage);    // array of segments of the exponent and precalculated bases
+    std::vector<std::pair<Integer, Element> > eb(storage);    // array of segments of the exponent and precalculated bases
     Integer temp, e = exponent;
     unsigned i;
 
@@ -37,7 +36,7 @@ template <class T> typename ExponentiationPrecomputation<T>::Element
     ExponentiationPrecomputation<T>::CascadeExponentiate(const Integer &exponent, 
         const ExponentiationPrecomputation<T> &pc2, const Integer &exponent2) const
 {
-    vector<pair<Integer, Element> > eb(storage+pc2.storage);    // array of segments of the exponent and precalculated bases
+    std::vector<std::pair<Integer, Element> > eb(storage+pc2.storage);    // array of segments of the exponent and precalculated bases
     Integer temp, e = exponent;
     unsigned i;
 

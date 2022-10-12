@@ -39,8 +39,6 @@
 #include "twtest/test.h"
 #include "core/error.h"
 
-using namespace std;
-
 void TestGrowHeap()
 {
     const int initSize = 0x4000;

@@ -55,8 +55,6 @@
 //#include <signal.h>
 int _getch(void);
 
-using namespace std;
-
 ///////////////////////////////////////////////////////////////////////////////
 // Static Functions, Variables --
 ///////////////////////////////////////////////////////////////////////////////
@@ -165,7 +163,7 @@ int cSiggenCmdLine::Execute()
 
         if (!util_FileExists(*fileIter))
         {
-            TCOUT << TSS_GetString(cSiggen, siggen::STR_ERR_NO_FILE) << _T(": ") << displayStr.c_str() << endl;
+            TCOUT << TSS_GetString(cSiggen, siggen::STR_ERR_NO_FILE) << _T(": ") << displayStr.c_str() << std::endl;
             rtn = 1;
             continue;
         }
@@ -200,7 +198,7 @@ int cSiggenCmdLine::Execute()
         }
         catch (eArchive&)
         {
-            TCOUT << TSS_GetString(cSiggen, siggen::STR_ERR_OPEN_FAILED) << _T(": ") << displayStr.c_str() << endl;
+            TCOUT << TSS_GetString(cSiggen, siggen::STR_ERR_OPEN_FAILED) << _T(": ") << displayStr.c_str() << std::endl;
             rtn = 1;
             continue;
         }
@@ -243,7 +241,7 @@ int cSiggenCmdLine::Execute()
             TCOUT << sigStringOut;
 
             if (!mpData->mTerseOutput)
-                TCOUT << endl;
+                TCOUT << std::endl;
             else
                 TCOUT << _T(" ");
             //Output finished for iteration
@@ -253,7 +251,7 @@ int cSiggenCmdLine::Execute()
 
         //Seperate lines of signatures (for multiple files) with a newline (if terse output)
         if (mpData->mTerseOutput)
-            TCOUT << endl;
+            TCOUT << std::endl;
     }
 
     if (!mpData->mTerseOutput)

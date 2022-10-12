@@ -11,8 +11,6 @@
 #include "algebra.cpp"
 #include "eprecomp.cpp"
 
-USING_NAMESPACE(std)
-
 NAMESPACE_BEGIN(NumberTheory)
 
 const unsigned maxPrimeTableSize = 3511;

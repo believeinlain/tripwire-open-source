@@ -93,12 +93,6 @@
 #endif
 
 //=========================================================================
-// OTHER DIRECTIVES
-//=========================================================================
-
-using namespace std;
-
-//=========================================================================
 // GLOBALS
 //=========================================================================
 
@@ -342,7 +336,7 @@ void cTextReportViewer::OutputTextReport() //throw (eTextReportViewer);
     //
     if (SINGLE_LINE == mReportingLevel)
     {
-        (*mpOut) << SingleLineReport() << endl;
+        (*mpOut) << SingleLineReport() << std::endl;
     }
     else if (PARSEABLE == mReportingLevel)
     {
@@ -420,7 +414,7 @@ void cTextReportViewer::PrintErrors()
 
     // separate general errors from genre errors
     if (fAtLeastOneGeneralError)
-        (*mpOut) << endl;
+        (*mpOut) << std::endl;
 
     //
     // cycle through genres
@@ -455,7 +449,7 @@ void cTextReportViewer::PrintErrors()
 
         // separate genre errors
         if (!fFirstErrorInGenre)
-            (*mpOut) << endl;
+            (*mpOut) << std::endl;
     }
 
     //
@@ -463,20 +457,20 @@ void cTextReportViewer::PrintErrors()
     //
     if (1 == mErrorNum)
     {
-        (*mpOut) << TSS_GetString(cTW, tw::STR_REPORT_NO_ERRORS) << endl << endl;
+        (*mpOut) << TSS_GetString(cTW, tw::STR_REPORT_NO_ERRORS) << std::endl << std::endl;
     }
 }
 
 void cTextReportViewer::OutputSectionDelimiter(int nString)
 {
-    (*mpOut) << g_sz79Equals << endl;
-    (*mpOut) << TSS_GetString(cTW, nString) << endl;
-    (*mpOut) << g_sz79Equals << endl << endl;
+    (*mpOut) << g_sz79Equals << std::endl;
+    (*mpOut) << TSS_GetString(cTW, nString) << std::endl;
+    (*mpOut) << g_sz79Equals << std::endl << std::endl;
 }
 
 void cTextReportViewer::OutputGenreDelimiter(cGenre::Genre g, bool fDenoteBallotSection)
 {
-    (*mpOut) << g_sz79Dashes << endl;
+    (*mpOut) << g_sz79Dashes << std::endl;
 
     // a # denotes the ballot section
     if (fDenoteBallotSection)
@@ -485,15 +479,15 @@ void cTextReportViewer::OutputGenreDelimiter(cGenre::Genre g, bool fDenoteBallot
         (*mpOut) << _T("  ");
 
     (*mpOut) << TSS_GetString(cTW, tw::STR_SECTION);
-    (*mpOut) << _T(": ") << cGenreSwitcher::GetInstance()->GenreToString(g, true) << endl;
-    (*mpOut) << g_sz79Dashes << endl << endl;
+    (*mpOut) << _T(": ") << cGenreSwitcher::GetInstance()->GenreToString(g, true) << std::endl;
+    (*mpOut) << g_sz79Dashes << std::endl << std::endl;
 }
 
 void cTextReportViewer::OutputNumDetails(int nString, int nObjects)
 {
-    (*mpOut) << _T("  ") << g_sz40Dashes << endl;
-    (*mpOut) << _T("  ") << TSS_GetString(cTW, nString) << nObjects << endl;
-    (*mpOut) << _T("  ") << g_sz40Dashes << endl << endl;
+    (*mpOut) << _T("  ") << g_sz40Dashes << std::endl;
+    (*mpOut) << _T("  ") << TSS_GetString(cTW, nString) << nObjects << std::endl;
+    (*mpOut) << _T("  ") << g_sz40Dashes << std::endl << std::endl;
 }
 
 void cTextReportViewer::OutputObjectSummary()
@@ -563,12 +557,12 @@ void cTextReportViewer::OutputObjectSummary(const cFCOReportGenreIter& genreIter
             violationReported = true;
 
             OutputSpecHeader(ri);
-            (*mpOut) << endl;
+            (*mpOut) << std::endl;
 
             if (mfUpdate)
             {
-                (*mpOut) << TSS_GetString(cTW, tw::STR_ADD_X) << endl;
-                (*mpOut) << endl;
+                (*mpOut) << TSS_GetString(cTW, tw::STR_ADD_X) << std::endl;
+                (*mpOut) << std::endl;
             }
 
             //
@@ -591,7 +585,7 @@ void cTextReportViewer::OutputObjectSummary(const cFCOReportGenreIter& genreIter
     if (violationReported == false)
     {
         // There are no violations for this section
-        (*mpOut) << TSS_GetString(cTW, tw::STR_NO_VIOLATIONS_IN_SECTION) << endl << endl;
+        (*mpOut) << TSS_GetString(cTW, tw::STR_NO_VIOLATIONS_IN_SECTION) << std::endl << std::endl;
     }
 
     //
@@ -680,15 +674,15 @@ void cTextReportViewer::OutputObjectDetails(const cFCOReportGenreIter& genreIter
     if (violationReported == false)
     {
         // There are no violations for this section
-        (*mpOut) << TSS_GetString(cTW, tw::STR_NO_VIOLATIONS_IN_SECTION) << endl << endl;
+        (*mpOut) << TSS_GetString(cTW, tw::STR_NO_VIOLATIONS_IN_SECTION) << std::endl << std::endl;
     }
 }
 
 void cTextReportViewer::OutputFooter()
 {
-    (*mpOut) << g_sz79Dashes << endl;
-    (*mpOut) << TSS_GetString(cTW, tw::STR_END_OF_REPORT) << endl << endl;
-    (*mpOut) << TSS_GetString(cTW, tw::STR_COPYRIGHT) << endl;
+    (*mpOut) << g_sz79Dashes << std::endl;
+    (*mpOut) << TSS_GetString(cTW, tw::STR_END_OF_REPORT) << std::endl << std::endl;
+    (*mpOut) << TSS_GetString(cTW, tw::STR_COPYRIGHT) << std::endl;
 }
 
 
@@ -742,14 +736,14 @@ void cTextReportViewer::ReportError(const cErrorQueueIter& eqIter)
     (*mpOut) << ostr.str();
 
     // output general error
-    (*mpOut) << cErrorTable::GetInstance()->Get(eqIter.GetError().GetID()) << endl;
+    (*mpOut) << cErrorTable::GetInstance()->Get(eqIter.GetError().GetID()) << std::endl;
 
     // output specific error
     (*mpOut).width(nWidth);
     (*mpOut) << _T(""); // this is here so the next output is 10 chars over
     (*mpOut) << cDisplayUtil::FormatMultiLineString(
                     cDisplayEncoder::EncodeInlineAllowWS(eqIter.GetError().GetMsg()), nWidth, 0)
-             << endl;
+             << std::endl;
 
 
     mErrorNum++;
@@ -771,7 +765,7 @@ void cTextReportViewer::PrintBallotLine(const iFCO& FCO)
     TSTRING strEncoded = mpCurNT->ToStringDisplay(FCO.GetName(), true);
     (*mpOut) << strEncoded.c_str();
 
-    (*mpOut) << endl;
+    (*mpOut) << std::endl;
 }
 
 
@@ -923,7 +917,7 @@ TSTRING cTextReportViewer::GetGenre()
 
 bool cTextReportViewer::PeekIsEOF()
 {
-    return (mpIn->peek() == char_traits<char>::eof());
+    return (mpIn->peek() == std::char_traits<char>::eof());
 }
 
 // if the next character in the stream is ('X' or 'x'), it eats the x, else it returns false
@@ -1125,18 +1119,18 @@ void cTextReportViewer::OutputReportHeader()
 
     const int headerColumnWidth = 30;
 
-    (*mpOut) << TSS_GetString(cTW, tw::STR_REPORT_TITLE) << endl << endl;
+    (*mpOut) << TSS_GetString(cTW, tw::STR_REPORT_TITLE) << std::endl << std::endl;
 
 
-    (*mpOut) << setw(headerColumnWidth) << TSS_GetString(cTW, tw::STR_R_GENERATED_BY)
-             << util_Encode(mpHeader->GetCreator()) << endl;
+    (*mpOut) << std::setw(headerColumnWidth) << TSS_GetString(cTW, tw::STR_R_GENERATED_BY)
+             << util_Encode(mpHeader->GetCreator()) << std::endl;
 
     // TODO: ( start / end / elapsed ) time
     TSTRING tstrDummy;
     int64   i64CreateTime = mpHeader->GetCreationTime();
     (*mpOut).width(headerColumnWidth);
     (*mpOut) << TSS_GetString(cTW, tw::STR_R_CREATED_ON) << cTWLocale::FormatTime(i64CreateTime, tstrDummy).c_str()
-             << endl;
+             << std::endl;
 
     (*mpOut).width(headerColumnWidth);
     (*mpOut) << TSS_GetString(cTW, tw::STR_DB_LAST_UPDATE);
@@ -1144,40 +1138,40 @@ void cTextReportViewer::OutputReportHeader()
     int64 i64LastDBUTime = mpHeader->GetLastDBUpdateTime();
     if (i64LastDBUTime == 0)
     {
-        (*mpOut) << TSS_GetString(cTW, tw::STR_NEVER) << endl << endl;
+        (*mpOut) << TSS_GetString(cTW, tw::STR_NEVER) << std::endl << std::endl;
     }
     else
     {
-        (*mpOut) << cTWLocale::FormatTime(i64LastDBUTime, tstrDummy).c_str() << endl << endl;
+        (*mpOut) << cTWLocale::FormatTime(i64LastDBUTime, tstrDummy).c_str() << std::endl << std::endl;
     }
 
     OutputSectionDelimiter(tw::STR_R_SUMMARY);
 
     (*mpOut).width(headerColumnWidth);
-    (*mpOut) << TSS_GetString(cTW, tw::STR_HOST_NAME) << mpHeader->GetSystemName().c_str() << endl;
+    (*mpOut) << TSS_GetString(cTW, tw::STR_HOST_NAME) << mpHeader->GetSystemName().c_str() << std::endl;
     (*mpOut).width(headerColumnWidth);
-    (*mpOut) << TSS_GetString(cTW, tw::STR_HOST_IP) << mpHeader->GetIPAddress() << endl;
+    (*mpOut) << TSS_GetString(cTW, tw::STR_HOST_IP) << mpHeader->GetIPAddress() << std::endl;
 
     (*mpOut).width(headerColumnWidth);
     (*mpOut) << TSS_GetString(cTW, tw::STR_HOST_ID);
 
     if (!mpHeader->GetHostID().empty())
-        (*mpOut) << mpHeader->GetHostID() << endl;
+        (*mpOut) << mpHeader->GetHostID() << std::endl;
     else
-        (*mpOut) << TSS_GetString(cTW, tw::STR_NONE) << endl;
+        (*mpOut) << TSS_GetString(cTW, tw::STR_NONE) << std::endl;
 
-    (*mpOut) << setw(headerColumnWidth) << TSS_GetString(cTW, tw::STR_POLICY_FILE_USED)
-             << util_Encode(mpHeader->GetPolicyFilename()) << endl;
+    (*mpOut) << std::setw(headerColumnWidth) << TSS_GetString(cTW, tw::STR_POLICY_FILE_USED)
+             << util_Encode(mpHeader->GetPolicyFilename()) << std::endl;
 
-    (*mpOut) << setw(headerColumnWidth) << TSS_GetString(cTW, tw::STR_CONFIG_FILE_USED)
-             << util_Encode(mpHeader->GetConfigFilename()) << endl;
+    (*mpOut) << std::setw(headerColumnWidth) << TSS_GetString(cTW, tw::STR_CONFIG_FILE_USED)
+             << util_Encode(mpHeader->GetConfigFilename()) << std::endl;
 
-    (*mpOut) << setw(headerColumnWidth) << TSS_GetString(cTW, tw::STR_DB_FILE_USED)
-             << util_Encode(mpHeader->GetDBFilename()) << endl;
+    (*mpOut) << std::setw(headerColumnWidth) << TSS_GetString(cTW, tw::STR_DB_FILE_USED)
+             << util_Encode(mpHeader->GetDBFilename()) << std::endl;
 
-    (*mpOut) << setw(headerColumnWidth) << TSS_GetString(cTW, tw::STR_CMD_LINE_USED)
-             << util_Encode(mpHeader->GetCommandLineParams()) << endl
-             << endl;
+    (*mpOut) << std::setw(headerColumnWidth) << TSS_GetString(cTW, tw::STR_CMD_LINE_USED)
+             << util_Encode(mpHeader->GetCommandLineParams()) << std::endl
+             << std::endl;
 }
 
 void cTextReportViewer::OutputRulesSummary()
@@ -1234,15 +1228,15 @@ void cTextReportViewer::OutputRulesSummary(const cFCOReportGenreIter& genreIter)
     (*mpOut) << TSS_GetString(cTW, tw::STR_REMOVED);
     (*mpOut).width(numObjectsWidth);
     (*mpOut) << TSS_GetString(cTW, tw::STR_CHANGED);
-    (*mpOut) << endl;
+    (*mpOut) << std::endl;
 
     (*mpOut) << _T("  ");
-    (*mpOut) << setw(specNameWidth) << _T("---------");
-    (*mpOut) << setw(severityWidth) << _T("--------------");
-    (*mpOut) << setw(numObjectsWidth) << _T("-----");
-    (*mpOut) << setw(numObjectsWidth) << _T("-------");
-    (*mpOut) << setw(numObjectsWidth) << _T("--------");
-    (*mpOut) << endl;
+    (*mpOut) << std::setw(specNameWidth) << _T("---------");
+    (*mpOut) << std::setw(severityWidth) << _T("--------------");
+    (*mpOut) << std::setw(numObjectsWidth) << _T("-----");
+    (*mpOut) << std::setw(numObjectsWidth) << _T("-------");
+    (*mpOut) << std::setw(numObjectsWidth) << _T("--------");
+    (*mpOut) << std::endl;
 
     // merge rules of duplicate names and severities
     ObjectSummaryList summaryList;
@@ -1260,12 +1254,12 @@ void cTextReportViewer::OutputRulesSummary(const cFCOReportGenreIter& genreIter)
             (*mpOut) << _T("  "); // indent
 
         TSTRING strSpecName = util_Encode(si->mSpecName);
-        (*mpOut) << setw(specNameWidth) << strSpecName;
+        (*mpOut) << std::setw(specNameWidth) << strSpecName;
 
         // if the name is too long, put it on its own line
         if (strSpecName.length() >= (unsigned int)specNameWidth)
         {
-            (*mpOut) << endl;
+            (*mpOut) << std::endl;
             (*mpOut) << _T("  "); // indent
             (*mpOut).width(specNameWidth);
             (*mpOut) << _T(""); // output space holder
@@ -1279,21 +1273,21 @@ void cTextReportViewer::OutputRulesSummary(const cFCOReportGenreIter& genreIter)
         (*mpOut) << si->mRemovedObjects;
         (*mpOut).width(numObjectsWidth);
         (*mpOut) << si->mChangedObjects;
-        (*mpOut) << endl;
+        (*mpOut) << std::endl;
 
         // output start point on next line
         // TODO: I am not sure if I like this in the new collated reports, dmb Sept 16 1999
         if (!si->mStartPoint.empty())
-            (*mpOut) << _T("  (") << si->mStartPoint << _T(")") << endl;
+            (*mpOut) << _T("  (") << si->mStartPoint << _T(")") << std::endl;
 
         nTotalObjectsChanged += si->mAddedObjects + si->mRemovedObjects + si->mChangedObjects;
     }
 
-    (*mpOut) << endl;
+    (*mpOut) << std::endl;
     (*mpOut) << TSS_GetString(cTW, tw::STR_OBJECTS_SCANNED) << _T(" ") << genreIter.GetGenreHeader().GetObjectsScanned()
-             << endl;
-    (*mpOut) << TSS_GetString(cTW, tw::STR_TOTAL_VIOLATIONS) << _T(" ") << nTotalObjectsChanged << endl;
-    (*mpOut) << endl;
+             << std::endl;
+    (*mpOut) << TSS_GetString(cTW, tw::STR_TOTAL_VIOLATIONS) << _T(" ") << nTotalObjectsChanged << std::endl;
+    (*mpOut) << std::endl;
 }
 
 
@@ -1357,13 +1351,13 @@ void cTextReportViewer::OutputSpecHeader(const cFCOReportSpecIter& ri)
     if (!WantOutputSpecHeader())
         return;
 
-    (*mpOut) << g_sz79Dashes << endl;
+    (*mpOut) << g_sz79Dashes << std::endl;
 
     (*mpOut) << TSS_GetString(cTW, tw::STR_RULE_NAME) << _T(": ") << util_Encode(ri.GetSpec()->GetName());
-    (*mpOut) << _T( " (" ) << mpCurNT->ToStringDisplay(ri.GetSpec()->GetStartPoint()) << _T( ")" ) << endl;
-    (*mpOut) << TSS_GetString(cTW, tw::STR_SEVERITY_LEVEL) << _T(": ") << ri.GetAttr()->GetSeverity() << endl;
+    (*mpOut) << _T( " (" ) << mpCurNT->ToStringDisplay(ri.GetSpec()->GetStartPoint()) << _T( ")" ) << std::endl;
+    (*mpOut) << TSS_GetString(cTW, tw::STR_SEVERITY_LEVEL) << _T(": ") << ri.GetAttr()->GetSeverity() << std::endl;
 
-    (*mpOut) << g_sz79Dashes << endl;
+    (*mpOut) << g_sz79Dashes << std::endl;
 }
 
 void cTextReportViewer::DisplayChangedProps(const iFCO* const     pfcoOld,
@@ -1382,17 +1376,17 @@ void cTextReportViewer::DisplayChangedProps(const iFCO* const     pfcoOld,
     ASSERT((attrNameWidth + (2 * attrValueWidth) + marginWidth) < 80);
 
     // output header
-    (*mpOut) << setw(marginWidth) << _T("");
-    (*mpOut) << setw(attrNameWidth) << TSS_GetString(cTW, tw::STR_ATTRIBUTES);
-    (*mpOut) << setw(attrValueWidth) << TSS_GetString(cTW, tw::STR_EXPECTED);
-    (*mpOut) << setw(attrValueWidth) << TSS_GetString(cTW, tw::STR_OBSERVED);
-    (*mpOut) << endl;
+    (*mpOut) << std::setw(marginWidth) << _T("");
+    (*mpOut) << std::setw(attrNameWidth) << TSS_GetString(cTW, tw::STR_ATTRIBUTES);
+    (*mpOut) << std::setw(attrValueWidth) << TSS_GetString(cTW, tw::STR_EXPECTED);
+    (*mpOut) << std::setw(attrValueWidth) << TSS_GetString(cTW, tw::STR_OBSERVED);
+    (*mpOut) << std::endl;
 
-    (*mpOut) << setw(marginWidth) << _T("");
-    (*mpOut) << setw(attrNameWidth) << _T("-------------");
-    (*mpOut) << setw(attrValueWidth) << _T("-----------");
-    (*mpOut) << setw(attrValueWidth) << _T("-----------");
-    (*mpOut) << endl;
+    (*mpOut) << std::setw(marginWidth) << _T("");
+    (*mpOut) << std::setw(attrNameWidth) << _T("-------------");
+    (*mpOut) << std::setw(attrValueWidth) << _T("-----------");
+    (*mpOut) << std::setw(attrValueWidth) << _T("-----------");
+    (*mpOut) << std::endl;
 
     int iNumProps = pfcoValid->GetPropSet()->GetNumProps(); // TODO: what if new + old have different props
     for (int j = 0; j < iNumProps; j++)
@@ -1412,13 +1406,13 @@ void cTextReportViewer::DisplayChangedProps(const iFCO* const     pfcoOld,
         if (!mpCurPD->IsMultiLineProp(j))
         {
             if (!pv || pv->ContainsItem(j))
-                (*mpOut) << setw(marginWidth) << _T("*");
+                (*mpOut) << std::setw(marginWidth) << _T("*");
             else
-                (*mpOut) << setw(marginWidth) << _T("");
+                (*mpOut) << std::setw(marginWidth) << _T("");
         }
         else // for multiline props we will highlight the observed prop if it has changed
         {
-            (*mpOut) << setw(marginWidth) << _T("");
+            (*mpOut) << std::setw(marginWidth) << _T("");
         }
 
 
@@ -1437,7 +1431,7 @@ void cTextReportViewer::DisplayChangedProps(const iFCO* const     pfcoOld,
 
             //strNewName += _T(':') ;
 
-            (*mpOut) << setw(attrNameWidth) << strNewName;
+            (*mpOut) << std::setw(attrNameWidth) << strNewName;
         }
 
         //
@@ -1463,14 +1457,14 @@ void cTextReportViewer::DisplayChangedProps(const iFCO* const     pfcoOld,
             strNewName += TSS_GetString(cTW, tw::STR_OBSERVED);
             //strNewName += _T(':') ;
 
-            (*mpOut) << endl;
+            (*mpOut) << std::endl;
 
             if (!pv || pv->ContainsItem(j))
-                (*mpOut) << setw(marginWidth) << _T("*");
+                (*mpOut) << std::setw(marginWidth) << _T("*");
             else
-                (*mpOut) << setw(marginWidth) << _T("");
+                (*mpOut) << std::setw(marginWidth) << _T("");
 
-            (*mpOut) << setw(attrNameWidth) << strNewName;
+            (*mpOut) << std::setw(attrNameWidth) << strNewName;
         }
         else
         {
@@ -1479,10 +1473,10 @@ void cTextReportViewer::DisplayChangedProps(const iFCO* const     pfcoOld,
             // value but position "cursor" in the correct place
             if (strOldValue.length() >= (unsigned int)attrValueWidth)
             {
-                (*mpOut) << endl;
-                (*mpOut) << setw(marginWidth) << _T("");
-                (*mpOut) << setw(attrNameWidth) << _T("");
-                (*mpOut) << setw(attrValueWidth) << _T("");
+                (*mpOut) << std::endl;
+                (*mpOut) << std::setw(marginWidth) << _T("");
+                (*mpOut) << std::setw(attrNameWidth) << _T("");
+                (*mpOut) << std::setw(attrValueWidth) << _T("");
             }
         }
 
@@ -1495,7 +1489,7 @@ void cTextReportViewer::DisplayChangedProps(const iFCO* const     pfcoOld,
         else
             (*mpOut) << _T("---");
 
-        (*mpOut) << endl;
+        (*mpOut) << std::endl;
     }
 }
 
@@ -1503,7 +1497,7 @@ void cTextReportViewer::OutputAddedSummary(const cFCOReportSpecIter& ri, FCOList
 {
     if (!ri.GetAddedSet()->IsEmpty())
     {
-        (*mpOut) << TSS_GetString(cTW, tw::STR_ADDED) << _T(":") << endl;
+        (*mpOut) << TSS_GetString(cTW, tw::STR_ADDED) << _T(":") << std::endl;
 
         // iterate over all fcos
         const cIterProxy<iFCOIter> pSetIterAdded = ri.GetAddedSet()->GetIter();
@@ -1519,7 +1513,7 @@ void cTextReportViewer::OutputAddedSummary(const cFCOReportSpecIter& ri, FCOList
                     pFCONameList->insert(fco->GetName());
             }
         }
-        (*mpOut) << endl;
+        (*mpOut) << std::endl;
     }
 }
 
@@ -1527,7 +1521,7 @@ void cTextReportViewer::OutputRemovedSummary(const cFCOReportSpecIter& ri, FCOLi
 {
     if (!ri.GetRemovedSet()->IsEmpty())
     {
-        (*mpOut) << TSS_GetString(cTW, tw::STR_REMOVED) << _T(":") << endl;
+        (*mpOut) << TSS_GetString(cTW, tw::STR_REMOVED) << _T(":") << std::endl;
 
         // iterate over all fcos
         const cIterProxy<iFCOIter> pSetIterRemoved = ri.GetRemovedSet()->GetIter();
@@ -1543,7 +1537,7 @@ void cTextReportViewer::OutputRemovedSummary(const cFCOReportSpecIter& ri, FCOLi
                     pFCONameList->insert(fco->GetName());
             }
         }
-        (*mpOut) << endl;
+        (*mpOut) << std::endl;
     }
 }
 
@@ -1551,7 +1545,7 @@ void cTextReportViewer::OutputChangedSummary(const cFCOReportSpecIter& ri, FCOLi
 {
     if (ri.GetNumChanged() > 0)
     {
-        (*mpOut) << TSS_GetString(cTW, tw::STR_CHANGED) << _T(":") << endl;
+        (*mpOut) << TSS_GetString(cTW, tw::STR_CHANGED) << _T(":") << std::endl;
 
         // iterate over all changed fcos
         cFCOReportChangeIter changedIter(ri);
@@ -1568,7 +1562,7 @@ void cTextReportViewer::OutputChangedSummary(const cFCOReportSpecIter& ri, FCOLi
             }
         }
 
-        (*mpOut) << endl;
+        (*mpOut) << std::endl;
     }
 }
 
@@ -1587,18 +1581,18 @@ void cTextReportViewer::OutputAddedDetails(const cFCOReportSpecIter& ri)
             if (!IgnoreThisFCO(fco))
             {
                 (*mpOut) << TSS_GetString(cTW, tw::STR_ADDED_FILE_NAME) << _T(" ")
-                         << mpCurNT->ToStringDisplay(fco->GetName()).c_str() << endl;
+                         << mpCurNT->ToStringDisplay(fco->GetName()).c_str() << std::endl;
 
                 if (FULL_REPORT == mReportingLevel)
                 {
-                    (*mpOut) << endl;
+                    (*mpOut) << std::endl;
                     DisplayChangedProps(NULL, fco, NULL);
-                    (*mpOut) << endl << endl;
+                    (*mpOut) << std::endl << std::endl;
                 }
             }
         }
 
-        (*mpOut) << endl;
+        (*mpOut) << std::endl;
     }
 }
 
@@ -1617,17 +1611,17 @@ void cTextReportViewer::OutputRemovedDetails(const cFCOReportSpecIter& ri)
             if (!IgnoreThisFCO(fco))
             {
                 (*mpOut) << TSS_GetString(cTW, tw::STR_REMOVED_FILE_NAME) << _T(" ")
-                         << mpCurNT->ToStringDisplay(fco->GetName()).c_str() << endl;
+                         << mpCurNT->ToStringDisplay(fco->GetName()).c_str() << std::endl;
 
                 if (FULL_REPORT == mReportingLevel)
                 {
-                    (*mpOut) << endl;
+                    (*mpOut) << std::endl;
                     DisplayChangedProps(fco, NULL, NULL);
-                    (*mpOut) << endl << endl;
+                    (*mpOut) << std::endl << std::endl;
                 }
             }
         }
-        (*mpOut) << endl;
+        (*mpOut) << std::endl;
     }
 }
 
@@ -1645,13 +1639,13 @@ void cTextReportViewer::OutputChangedDetails(const cFCOReportSpecIter& ri)
             if (!IgnoreThisFCO(fco))
             {
                 (*mpOut) << TSS_GetString(cTW, tw::STR_CHANGED_FILE_NAME) << _T(" ")
-                         << mpCurNT->ToStringDisplay(fco->GetName()).c_str() << endl
-                         << endl;
+                         << mpCurNT->ToStringDisplay(fco->GetName()).c_str() << std::endl
+                         << std::endl;
                 DisplayChangedProps(fco, changedIter.GetNew(), &changedIter.GetChangeVector());
-                (*mpOut) << endl << endl;
+                (*mpOut) << std::endl << std::endl;
             }
         }
-        (*mpOut) << endl;
+        (*mpOut) << std::endl;
     }
 }
 
@@ -1947,7 +1941,7 @@ void cTextReportViewer::OutputParseableReport()
                 if (!IgnoreThisFCO(pSetIterAdded->FCO()))
                 {
                     (*mpOut) << TSS_GetString(cTW, tw::STR_ADDED) << _T(":\t");
-                    (*mpOut) << mpCurNT->ToStringDisplay(pSetIterAdded->FCO()->GetName(), true) << endl;
+                    (*mpOut) << mpCurNT->ToStringDisplay(pSetIterAdded->FCO()->GetName(), true) << std::endl;
                 }
             }
 
@@ -1958,7 +1952,7 @@ void cTextReportViewer::OutputParseableReport()
                 if (!IgnoreThisFCO(pSetIterRemoved->FCO()))
                 {
                     (*mpOut) << TSS_GetString(cTW, tw::STR_REMOVED) << _T(":\t");
-                    (*mpOut) << mpCurNT->ToStringDisplay(pSetIterRemoved->FCO()->GetName(), true) << endl;
+                    (*mpOut) << mpCurNT->ToStringDisplay(pSetIterRemoved->FCO()->GetName(), true) << std::endl;
                 }
             }
 
@@ -1969,7 +1963,7 @@ void cTextReportViewer::OutputParseableReport()
                 if (!IgnoreThisFCO(changedIter.GetNew()))
                 {
                     (*mpOut) << TSS_GetString(cTW, tw::STR_CHANGED) << _T(":\t");
-                    (*mpOut) << mpCurNT->ToStringDisplay(changedIter.GetNew()->GetName(), true) << endl;
+                    (*mpOut) << mpCurNT->ToStringDisplay(changedIter.GetNew()->GetName(), true) << std::endl;
                 }
             }
         }
@@ -1978,7 +1972,7 @@ void cTextReportViewer::OutputParseableReport()
 
 char cTextReportViewer::PeekChar()
 {
-    return char_traits<char>::to_char_type(mpIn->peek());
+    return std::char_traits<char>::to_char_type(mpIn->peek());
 }
 
 

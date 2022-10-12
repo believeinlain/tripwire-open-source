@@ -45,8 +45,6 @@
 #include "fco/fconame.h"
 #include "tw/twutil.h"
 
-using namespace std;
-
 static void assertParse(const std::string& configLineIn, bool expectValid)
 {
     static const std::string sMandatory = "\nPOLFILE=foo"

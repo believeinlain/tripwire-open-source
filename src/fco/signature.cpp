@@ -48,8 +48,6 @@
 #    endif
 #endif
 
-using namespace std;
-
 // Vector for base64 conversion
 //
 // The standard "digits" for base64 are "[A-Z][a-z][0-9]+/"
@@ -344,7 +342,7 @@ TSTRING cChecksumSignature::AsStringHex() const
     TOSTRINGSTREAM ss;
 
     ss.imbue(std::locale::classic());
-    ss.setf(ios::hex, ios::basefield);
+    ss.setf(std::ios::hex, std::ios::basefield);
 
     ASSERT(false);
     ss << (size_t)(uint32)mChecksum; // TODO:BAM -- this is truncating a 64-bit value to 32 bits!
@@ -433,7 +431,7 @@ TSTRING cCRC32Signature::AsStringHex() const
     TOSTRINGSTREAM ss;
 
     ss.imbue(std::locale::classic());
-    ss.setf(ios::hex, ios::basefield);
+    ss.setf(std::ios::hex, std::ios::basefield);
 
     ss << (size_t)mCRCInfo.crc;
 

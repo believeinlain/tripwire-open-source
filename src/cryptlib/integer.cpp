@@ -8,7 +8,6 @@
 #include "words.h"
 
 #include "iostream"
-//USING_NAMESPACE(std)
 
 #include "algebra.cpp"
 #include "eprecomp.cpp"
@@ -669,8 +668,8 @@ void AsymmetricMultiply(word *R, word *T, const word *A, unsigned int NA, const 
 
     if (NA > NB)
     {
-        swap(A, B);
-        swap(NA, NB);
+        std::swap(A, B);
+        std::swap(NA, NB);
     }
 
     assert(NB % NA == 0);
@@ -1052,8 +1051,8 @@ unsigned int AlmostInverse(word *R, word *T, const word *A, unsigned int NA, con
 
         if (Compare(f, g, fgLen)==-1)
         {
-            swap(f, g);
-            swap(b, c);
+            std::swap(f, g);
+            std::swap(b, c);
             s++;
         }
 
@@ -1272,8 +1271,8 @@ Integer Integer::AbsoluteValue() const
 
 void swap(Integer &a, Integer &b)
 {
-    swap(a.reg, b.reg);
-    swap(a.sign, b.sign);
+    std::swap(a.reg, b.reg);
+    std::swap(a.sign, b.sign);
 }
 
 Integer::Integer(word value, unsigned int length)
@@ -1551,20 +1550,20 @@ std::istream& operator>>(std::istream& in, Integer &a)
     return in;
 }
 
-ostream& operator<<(ostream& out, const Integer &a)
+std::ostream& operator<<(std::ostream& out, const Integer &a)
 {
     // Get relevant conversion specifications from ostream.
-    long f = out.flags() & ios::basefield;  // Get base digits.
+    long f = out.flags() & std::ios::basefield;  // Get base digits.
     int base, block;
     char suffix;
     switch(f)
     {
-    case ios::oct :
+    case std::ios::oct :
         base = 8;
         block = 8;
         suffix = 'o';
         break;
-    case ios::hex :
+    case std::ios::hex :
         base = 16;
         block = 4;
         suffix = 'h';

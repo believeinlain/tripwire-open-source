@@ -44,8 +44,6 @@
 
 #include <unistd.h>
 
-using namespace std;
-
 
 std::string makeTestFile(const std::string& filename)
 {
